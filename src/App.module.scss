@@ -1,0 +1,41 @@
+@use "sass:math";
+
+.app {
+  width: max-content;
+  margin: 80px auto;
+  padding: 16px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.preview {
+  margin-top: 24px;
+}
+
+$lightness1: 100 - 1 * math.div(50, 3);
+$lightness2: 100 - 2 * math.div(50, 3);
+$lightness3: 100 - 3 * math.div(50, 3);
+$lightness4: 100 - 4 * math.div(50, 3);
+$colorStep: 3;
+
+@keyframes gamingColor {
+  @for $i from 0 through math.div(360, $colorStep) {
+    #{100 * math.div($i, math.div(360, $colorStep))}% {
+      --picked-color: hsl(#{$i * $colorStep}, 100%, 50%);
+      --picked-color-level-1: hsl(#{$i * $colorStep}, 100%, #{$lightness1}%);
+      --picked-color-level-2: hsl(#{$i * $colorStep}, 100%, #{$lightness2}%);
+      --picked-color-level-3: hsl(#{$i * $colorStep}, 100%, #{$lightness3}%);
+      --picked-color-level-4: hsl(#{$i * $colorStep}, 100%, #{$lightness4}%);
+    }
+  }
+}
+
+.app[data-gaming-mode="true"] {
+  --picked-color-contract: #ffffff;
+  animation: gamingColor 4s infinite linear;
+}
