@@ -1,5 +1,4 @@
 .button {
-  margin-top: 24px;
   width: 100%;
   padding: 8px;
   border: none;
@@ -10,4 +9,12 @@
   color: var(--picked-color-contract);
   background-color: var(--picked-color);
   transition: background-color 0.2s, color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--picked-color-level-2);
+  }
+
+  &:active {
+    background-color: var(--picked-color-level-1);
+  }
 }

@@ -1,20 +1,24 @@
 @use "sass:math";
 
 .app {
-  width: max-content;
-  margin: 80px auto;
+  width: fit-content;
+  margin: 32px auto;
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .title {
   font-size: 18px;
   font-weight: 600;
-  margin-bottom: 16px;
   text-align: center;
 }
 
-.preview {
-  margin-top: 24px;
+.description {
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 $lightness1: 100 - 1 * math.div(50, 3);

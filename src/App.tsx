@@ -5,15 +5,21 @@ import { GitHubGraphPreview } from "./components/GitHubGraphPreview";
 import { ColorizedButton } from "./components/ColorizedButton";
 import { getStorageValue } from "./PickedColor";
 import { calculateColors } from "./calculateColors";
+import { GamingCheckbox } from "./components/GamingCheckbox";
 
 function App() {
   const [color, setColor] = useState(getStorageValue());
+
   const onChange = (hue: number, saturation: number) => {
     setColor({ hue, saturation });
   };
 
-  const saveToChromeStorage = () => {
-    chrome.storage.sync.set({ picked: color });
+  const [isSaved, setIsSaved] = useState(false);
+
+  const saveToChromeStorage = async () => {
+    await chrome.storage.sync.set({ picked: color });
+    setIsSaved(true);
+    setTimeout(() => setIsSaved(false), 3000);
   };
 
   const calculatedColors = calculateColors(color);
@@ -35,18 +41,17 @@ function App() {
       data-gaming-mode={color === "gaming"}
     >
       <h1 className={styles.title}>Kaleido GitHub Graph</h1>
-      <label>
-        <input
-          type="checkbox"
-          checked={color === "gaming"}
-          onChange={(event) =>
-            setColor(
-              event.target.checked ? "gaming" : { hue: 130, saturation: 64 }
-            )
+      <p className={styles.description}>
+        Pick a color and see how it looks on your GitHub graph!
+      </p>
+      <div className={styles.checkbox}>
+        <GamingCheckbox
+          isChecked={color === "gaming"}
+          onChange={(isChecked) =>
+            setColor(isChecked ? "gaming" : { hue: 130, saturation: 64 })
           }
         />
-        Gaming Mode
-      </label>
+      </div>
       <ColorPicker
         isDisabled={color === "gaming"}
         hue={color !== "gaming" ? color.hue : 130}
@@ -60,7 +65,7 @@ function App() {
         onClick={saveToChromeStorage}
         gamingMode={color === "gaming"}
       >
-        Save
+        {isSaved ? "Saved!" : "Save"}
       </ColorizedButton>
     </div>
   );
