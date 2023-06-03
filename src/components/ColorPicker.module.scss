@@ -17,13 +17,13 @@
   z-index: -1;
   background: linear-gradient(
     to right,
-    red 0%,
-    yellow 17%,
-    lime 33%,
-    cyan 50%,
-    blue 66%,
-    magenta 83%,
-    red 100%
+    hsl(0, 100%, 50%) 0%,
+    hsl(60, 100%, 50%) 17%,
+    hsl(120, 100%, 50%) 33%,
+    hsl(180, 100%, 50%) 50%,
+    hsl(240, 100%, 50%) 66%,
+    hsl(300, 100%, 50%) 83%,
+    hsl(360, 100%, 50%) 100%
   );
 }
 
