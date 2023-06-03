@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import { getStorageValue } from "../PickedColor";
+import { getStorageValue, isPickedColor } from "../PickedColor";
 import { calculateColors } from "../calculateColors";
 import { useEffect, useState } from "react";
 
@@ -11,7 +11,7 @@ export const StyleInjector: React.FC = () => {
     const changeListener: Parameters<
       typeof chrome.storage.sync.onChanged.addListener
     >[0] = (changes) => {
-      if ("picked" in changes) {
+      if (isPickedColor(changes.picked?.newValue)) {
         setPickedColor(changes.picked.newValue);
       }
     };
